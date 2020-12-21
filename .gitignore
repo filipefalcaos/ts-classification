@@ -143,3 +143,4 @@ cython_debug/
 # Application-specific
 data/testsmells_java.sqlite
 repositories/
+tokenizer/
