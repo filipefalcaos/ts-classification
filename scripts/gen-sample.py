@@ -33,8 +33,9 @@ def query_testsmell(conn, testsmell, cond, limit):
     """
 
     query = 'SELECT App, CommitSHA, RelativeTestFilePath FROM tool_testsmell_history WHERE ' + \
-            testsmell + ' = \'' + cond + '\' ORDER BY RANDOM() LIMIT ' + str(limit)
-    return pd.read_sql_query(query, conn)
+            testsmell + ' = \'' + cond + '\''
+    df = pd.read_sql_query(query, conn)
+    return df.sample(n=limit, random_state=1)
 
 
 def select_testsmell_data(conn):
@@ -49,8 +50,8 @@ def select_testsmell_data(conn):
     testsmells = ['ConditionalTestLogic', 'ExceptionCatchingThrowing']
     dataframes = []
     for testsmell in testsmells:
-        df1 = query_testsmell(conn, testsmell, 'true', 5000)
-        df2 = query_testsmell(conn, testsmell, 'false', 5000)
+        df1 = query_testsmell(conn, testsmell, 'true', 1000)
+        df2 = query_testsmell(conn, testsmell, 'false', 1000)
         df1['Smell'] = True
         df2['Smell'] = False
         
