@@ -33,7 +33,8 @@ def query_testsmell(conn, testsmell, cond, limit):
     """
 
     query = 'SELECT App, CommitSHA, RelativeTestFilePath FROM tool_testsmell_history WHERE ' + \
-            testsmell + ' = \'' + cond + '\''
+            testsmell + ' = \'' + cond + '\' AND App IN (\'jsoup\', \'jabref\', ' + \
+            '\'azure-sdk-for-java\', \'dropwizard\', \'guice\')'
     df = pd.read_sql_query(query, conn)
     return df.sample(n=limit, random_state=1)
 
