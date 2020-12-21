@@ -141,4 +141,4 @@ cython_debug/
 .DS_Store
 
 # Application-specific
-data
+data/testsmells_java.sqlite
